@@ -1,5 +1,6 @@
 package com.vladsimonenko.moviescore.service;
 
+import com.vladsimonenko.moviescore.exception.ValidationException;
 import com.vladsimonenko.moviescore.model.User;
 
 public interface UserService {
@@ -9,4 +10,6 @@ public interface UserService {
     User getById(Long id);
 
     User getByUsername(String username);
+
+    User create(User user) throws ValidationException;
 }

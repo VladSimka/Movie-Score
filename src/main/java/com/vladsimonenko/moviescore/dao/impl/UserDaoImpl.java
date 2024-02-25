@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,11 @@ public class UserDaoImpl implements UserDao {
             SELECT *
             FROM reviews
             WHERE user_id = ?
+            """;
+
+    private static final String SAVE_USER_SQL = """
+            INSERT INTO users (username, password)
+            VALUES (?,?)
             """;
 
     private UserDaoImpl() {
@@ -81,6 +87,24 @@ public class UserDaoImpl implements UserDao {
 
 
         return Optional.ofNullable(user);
+    }
+
+    @Override
+    public User save(User user) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(SAVE_USER_SQL, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.execute();
+
+            if (preparedStatement.getGeneratedKeys().next()) {
+                user.setId(preparedStatement.getGeneratedKeys().getLong("id"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return user;
     }
 
 
