@@ -45,7 +45,7 @@
             </c:if>
 
             <c:if test="${user != null}">
-                ${user}
+                <a href="/controller?command=go_to_user_page">${user.getUsername()}</a>
                 <div class="text-end nav col-2">
                     <form action="${pageContext.request.contextPath}/controller">
                         <input type="hidden" name="command" value="logout">
@@ -57,14 +57,6 @@
     </div>
 </header>
 
-<c:if test="${user!=null}">
-    <img src="<c:url value="/resources/images.jpeg"></c:url>" alt="das">
-</c:if>
-
-<c:forEach var="film" items="${films}">
-    ${film}
-    <br>
-</c:forEach>
 
 </body>
 </html>

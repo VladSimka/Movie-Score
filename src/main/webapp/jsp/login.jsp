@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/controller">
+<form action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command" value="login">
 
     Login:<input type="text" name="username" required/>

@@ -10,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class User {
     private Long id;
 
@@ -20,8 +21,6 @@ public class User {
     private Set<Role> roles;
 
     private List<Review> reviews;
-
-    private List<Film> likedFilms;
 }
 
 

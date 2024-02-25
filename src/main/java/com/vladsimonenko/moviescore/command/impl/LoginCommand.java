@@ -15,10 +15,10 @@ public class LoginCommand implements Command {
 
         if (userService.authenticate(username, password)) {
             page = "jsp/main.jsp";
-            request.setAttribute("user", username);
+            request.getSession().setAttribute("user", userService.getByUsername(username));
+        } else {
+            page = "jsp/main.jsp";
         }
-
-
         return page;
     }
 }

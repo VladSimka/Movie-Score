@@ -20,5 +20,8 @@ public class Film {
     private double averageGrade;
 
     @ToString.Exclude
+    private String pathToImage;
+
+    @ToString.Exclude
     List<Review> reviews;
 }
