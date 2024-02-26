@@ -28,12 +28,14 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = null;
         String commandStr = request.getParameter("command");
+        Command command = null;
         try {
-            Command command = CommandType.define(commandStr);
-            page = command.execute(request);
+            command = CommandType.define(commandStr);
         } catch (Exception e) {
-            page = "jsp/main.jsp";
+            command = CommandType.define("default");
         }
+
+        page = command.execute(request);
         request.getRequestDispatcher(page).forward(request, response);
 
     }

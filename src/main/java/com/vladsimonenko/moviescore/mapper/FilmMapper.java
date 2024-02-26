@@ -18,6 +18,7 @@ public class FilmMapper implements Mapper<Film, FilmDto> {
     @Override
     public FilmDto toDto(Film entity) {
         return FilmDto.builder()
+                .id(entity.getId())
                 .title(entity.getTitle())
                 .averageGrade(entity.getAverageGrade())
                 .description(entity.getDescription())

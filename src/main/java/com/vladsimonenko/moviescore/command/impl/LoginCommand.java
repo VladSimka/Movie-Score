@@ -11,13 +11,10 @@ public class LoginCommand implements Command {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         UserService userService = UserServiceImpl.getInstance();
-        String page = null;
+        String page = "controller?command=default";
 
         if (userService.authenticate(username, password)) {
-            page = "jsp/main.jsp";
             request.getSession().setAttribute("user", userService.getByUsername(username));
-        } else {
-            page = "jsp/main.jsp";
         }
         return page;
     }

@@ -8,9 +8,11 @@ import com.vladsimonenko.moviescore.mapper.UserMapper;
 import com.vladsimonenko.moviescore.model.User;
 import com.vladsimonenko.moviescore.service.UserService;
 import com.vladsimonenko.moviescore.validator.CreateUserValidator;
+import com.vladsimonenko.moviescore.validator.Error;
 import com.vladsimonenko.moviescore.validator.ValidationResult;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -48,6 +50,16 @@ public class UserServiceImpl implements UserService {
         if (!result.isValid()) {
             throw new ValidationException(result.getErrors());
         }
+
+        if (userDao.findByUsername(user.getUsername()).isPresent()) {
+            throw new ValidationException(List.of(Error.of("invalid.register"
+                    , "User with this username already exists")));
+        }
         return userDao.save(user);
+    }
+
+    @Override
+    public void addReview(User user, Long filmId, Long review) {
+        userDao.addReview(user, filmId, review);
     }
 }

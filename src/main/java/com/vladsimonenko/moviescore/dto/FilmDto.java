@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 @Builder
 public class FilmDto {
+    Long id;
 
     private String title;
 

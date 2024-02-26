@@ -11,7 +11,6 @@ import java.util.concurrent.BlockingQueue;
 
 
 public final class ConnectionManager {
-    private static final ConnectionManager instance = new ConnectionManager();
     private static final String URL_KEY = "db.url";
     private static final String USERNAME_KEY = "db.username";
     private static final String PASSWORD_KEY = "db.password";

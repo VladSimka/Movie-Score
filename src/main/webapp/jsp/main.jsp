@@ -24,16 +24,16 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
             </ul>
 
 
             <c:if test="${user == null}">
                 <div class="text-end nav col-2">
-                    <form action="${pageContext.request.contextPath}/jsp/login.jsp">
+                    <form action="${pageContext.request.contextPath}/auth/login.jsp">
                         <input type="submit" value="Login" class="btn btn-outline-light me-2">
                     </form>
-                    <form action="${pageContext.request.contextPath}/jsp/register.jsp">
+                    <form action="${pageContext.request.contextPath}/auth/register.jsp">
                         <input type="hidden" name="command" value="register">
                         <input type="submit" value="Register" class="btn btn-outline-light me-2">
                     </form>
@@ -56,7 +56,7 @@
 
 <c:if test="${not empty requestScope.films}">
     <c:forEach var="film" items="${requestScope.films}">
-        <a href="/controller?command=go_to_film_page&id=${film.getId()}">${film.getTitle()}</a>
+        <a href="/controller?command=go_to_film_page&film_id=${film.getId()}">${film.getTitle()}</a>
         <br>
     </c:forEach>
 </c:if>

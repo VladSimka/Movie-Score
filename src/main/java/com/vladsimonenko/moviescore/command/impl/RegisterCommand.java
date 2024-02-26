@@ -28,7 +28,7 @@ public class RegisterCommand implements Command {
             page = "jsp/main.jsp";
             request.getSession().setAttribute("user", user);
         } catch (ValidationException e) {
-            page = "jsp/register.jsp";
+            page = "auth/register.jsp";
             request.setAttribute("errors", e.getErrors());
         }
         return page;

@@ -14,7 +14,7 @@ public class GoToFilmPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        String strId = request.getParameter("id");
+        String strId = request.getParameter("film_id");
         if (strId != null) {
             Long id = Long.valueOf(strId);
             Film film = filmService.getById(id);

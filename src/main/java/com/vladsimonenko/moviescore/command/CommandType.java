@@ -5,6 +5,7 @@ import com.vladsimonenko.moviescore.command.impl.LoginCommand;
 import com.vladsimonenko.moviescore.command.impl.LogoutCommand;
 import com.vladsimonenko.moviescore.command.impl.RegisterCommand;
 import com.vladsimonenko.moviescore.command.impl.film.GoToFilmPageCommand;
+import com.vladsimonenko.moviescore.command.impl.user.AddReviewCommand;
 import com.vladsimonenko.moviescore.command.impl.user.GoToUserPageCommand;
 
 public enum CommandType {
@@ -14,7 +15,8 @@ public enum CommandType {
     REGISTER(new RegisterCommand()),
     DEFAULT(new DefaultCommand()),
     GO_TO_USER_PAGE(new GoToUserPageCommand()),
-    GO_TO_FILM_PAGE(new GoToFilmPageCommand());
+    GO_TO_FILM_PAGE(new GoToFilmPageCommand()),
+    ADD_REVIEW(new AddReviewCommand());
     private final Command command;
 
     CommandType(Command command) {

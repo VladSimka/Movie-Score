@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
             WHERE username = ?
             """;
 
-    private static final String FIND_ALL_REVIEWS_BY_USER_ID = """
+    private static final String FIND_ALL_REVIEWS_BY_USER_ID_SQL = """
             SELECT *
             FROM reviews
             WHERE user_id = ?
@@ -34,6 +34,11 @@ public class UserDaoImpl implements UserDao {
     private static final String SAVE_USER_SQL = """
             INSERT INTO users (username, password)
             VALUES (?,?)
+            """;
+
+    private static final String SAVE_REVIEW_SQL = """
+            INSERT INTO reviews (grade, film_id, user_id)
+            VALUES (?,?,?)
             """;
 
     private UserDaoImpl() {
@@ -77,7 +82,7 @@ public class UserDaoImpl implements UserDao {
                         .password(resultSet.getString("password"))
                         .build();
 
-                user.setReviews(ReviewDao.getReviews(user.getId(), FIND_ALL_REVIEWS_BY_USER_ID));
+                user.setReviews(ReviewDao.getReviews(user.getId(), FIND_ALL_REVIEWS_BY_USER_ID_SQL));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -103,6 +108,21 @@ public class UserDaoImpl implements UserDao {
         }
 
         return user;
+    }
+
+    @Override
+    public void addReview(User user, Long filmId, Long review) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(SAVE_REVIEW_SQL)) {
+            preparedStatement.setLong(1, review);
+            preparedStatement.setLong(2, filmId);
+            preparedStatement.setLong(3, user.getId());
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

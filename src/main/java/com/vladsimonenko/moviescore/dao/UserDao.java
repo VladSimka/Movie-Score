@@ -11,4 +11,6 @@ public interface UserDao {
     Optional<User> findByUsername(String username);
 
     User save(User user);
+
+    void addReview(User user, Long filmId, Long review);
 }
