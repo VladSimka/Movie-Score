@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User infooo</title>
+    <title>FIIILM</title>
 </head>
 <body>
-${user}
+
+This is very awesome film ${film}
 </body>
 </html>

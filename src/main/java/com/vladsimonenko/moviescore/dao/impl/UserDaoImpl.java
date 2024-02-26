@@ -1,7 +1,6 @@
 package com.vladsimonenko.moviescore.dao.impl;
 
 import com.vladsimonenko.moviescore.dao.UserDao;
-import com.vladsimonenko.moviescore.model.Review;
 import com.vladsimonenko.moviescore.model.User;
 import com.vladsimonenko.moviescore.util.ConnectionManager;
 import lombok.Getter;
@@ -9,8 +8,6 @@ import lombok.Getter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
@@ -78,8 +75,9 @@ public class UserDaoImpl implements UserDao {
                         .id(resultSet.getLong("id"))
                         .username(resultSet.getString("username"))
                         .password(resultSet.getString("password"))
-                        .reviews(findAllReviewsByUserId(resultSet.getLong("id")))
                         .build();
+
+                user.setReviews(ReviewDao.getReviews(user.getId(), FIND_ALL_REVIEWS_BY_USER_ID));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -108,25 +106,4 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    private List<Review> findAllReviewsByUserId(Long id) {
-        List<Review> reviews = new ArrayList<>();
-        try (var connection = ConnectionManager.get();
-             var preparedStatement = connection.prepareStatement(FIND_ALL_REVIEWS_BY_USER_ID)) {
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Review review = Review.builder()
-                        .id(resultSet.getLong("id"))
-                        .userId(resultSet.getLong("user_id"))
-                        .filmId(resultSet.getLong("film_id"))
-                        .grade(resultSet.getInt("grade"))
-                        .build();
-                reviews.add(review);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return reviews;
-    }
 }

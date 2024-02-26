@@ -54,5 +54,12 @@
 </header>
 
 
+<c:if test="${not empty requestScope.films}">
+    <c:forEach var="film" items="${requestScope.films}">
+        <a href="/controller?command=go_to_film_page&id=${film.getId()}">${film.getTitle()}</a>
+        <br>
+    </c:forEach>
+</c:if>
+
 </body>
 </html>

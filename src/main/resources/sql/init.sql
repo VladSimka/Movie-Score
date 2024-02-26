@@ -3,7 +3,7 @@ CREATE TABLE films
     id            SERIAL PRIMARY KEY,
     title         VARCHAR(255) NOT NULL,
     description   TEXT,
-    average_grade DECIMAL(3, 2) DEFAULT 0
+    path_to_image varchar(255) not null
 );
 
 CREATE TABLE users
