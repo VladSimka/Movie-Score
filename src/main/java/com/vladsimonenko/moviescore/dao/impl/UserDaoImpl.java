@@ -1,6 +1,7 @@
 package com.vladsimonenko.moviescore.dao.impl;
 
 import com.vladsimonenko.moviescore.dao.UserDao;
+import com.vladsimonenko.moviescore.model.Review;
 import com.vladsimonenko.moviescore.model.User;
 import com.vladsimonenko.moviescore.util.ConnectionManager;
 import lombok.Getter;
@@ -113,12 +114,24 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addReview(User user, Long filmId, Long review) {
         try (var connection = ConnectionManager.get();
-             var preparedStatement = connection.prepareStatement(SAVE_REVIEW_SQL)) {
+             var preparedStatement = connection.prepareStatement(SAVE_REVIEW_SQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, review);
             preparedStatement.setLong(2, filmId);
             preparedStatement.setLong(3, user.getId());
 
             preparedStatement.execute();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+            Review reviewInsert = new Review();
+            if (generatedKeys.next()) {
+                reviewInsert.setId(generatedKeys.getLong("id"));
+            }
+            reviewInsert.setUserId(user.getId());
+            reviewInsert.setFilmId(filmId);
+            reviewInsert.setGrade(Math.toIntExact(review));
+
+            user.getReviews().add(reviewInsert);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

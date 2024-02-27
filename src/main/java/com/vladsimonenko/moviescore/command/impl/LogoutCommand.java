@@ -8,6 +8,6 @@ public class LogoutCommand implements Command {
     public String execute(HttpServletRequest request) {
         request.getSession().invalidate();
 
-        return "jsp/main.jsp";
+        return "/controller?command=default";
     }
 }

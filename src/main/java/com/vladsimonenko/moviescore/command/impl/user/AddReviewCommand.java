@@ -1,6 +1,7 @@
 package com.vladsimonenko.moviescore.command.impl.user;
 
 import com.vladsimonenko.moviescore.command.Command;
+import com.vladsimonenko.moviescore.exception.ValidationException;
 import com.vladsimonenko.moviescore.model.User;
 import com.vladsimonenko.moviescore.service.UserService;
 import com.vladsimonenko.moviescore.service.impl.UserServiceImpl;
@@ -16,7 +17,13 @@ public class AddReviewCommand implements Command {
 
         User user = (User) request.getSession().getAttribute("user");
 
-        userService.addReview(user, Long.valueOf(filmId), Long.valueOf(review));
+        try {
+            userService.addReview(user, Long.valueOf(filmId), Long.valueOf(review));
+        } catch (ValidationException e) {
+            request.setAttribute("errors", e.getErrors());
+        }
+
+
         return "controller?command=go_to_film_page&film_id=" + filmId;
     }
 }

@@ -4,6 +4,7 @@ import com.vladsimonenko.moviescore.dto.UserDto;
 import com.vladsimonenko.moviescore.model.User;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         return User.builder()
                 .username(dto.getUsername())
                 .password(dto.getPassword())
+                .reviews(new ArrayList<>())
                 .build();
     }
 

@@ -5,9 +5,10 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Getter
-public class ValidationException extends Exception {
+public class ValidationException extends Exception{
     private final List<Error> errors;
 
     public ValidationException(List<Error> errors) {

@@ -25,7 +25,7 @@ public class RegisterCommand implements Command {
         String page = null;
         try {
             User user = userService.create(userMapper.toEntity(built));
-            page = "jsp/main.jsp";
+            page = "/controller?command=default";
             request.getSession().setAttribute("user", user);
         } catch (ValidationException e) {
             page = "auth/register.jsp";

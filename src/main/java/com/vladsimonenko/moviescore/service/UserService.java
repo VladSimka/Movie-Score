@@ -13,5 +13,5 @@ public interface UserService {
 
     User create(User user) throws ValidationException;
 
-    void addReview(User user, Long aLong, Long review);
+    void addReview(User user, Long aLong, Long review) throws ValidationException;
 }
