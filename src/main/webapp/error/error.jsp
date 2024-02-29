@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Info</title>
+    <title>Error</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -24,32 +24,14 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
             </ul>
-
-
-
-            <c:if test="${user != null}">
-                <div class="text-end nav col-2">
-                    <form action="${pageContext.request.contextPath}/controller">
-                        <input type="hidden" name="command" value="logout">
-                        <input type="submit" value="Logout" class="btn btn-outline-light me-2">
-                    </form>
-                </div>
-            </c:if>
         </div>
     </div>
 </header>
 
-<div class="container-1">
-    <h1>User Information</h1>
-    <div class="value">
-        <span class="label">ID:</span>
-        <span>${user.id}</span>
-    </div>
-    <div class="value">
-        <span class="label">Username:</span>
-        <span>${user.username}</span>
-    </div>
-
+<div class="container mt-5 text-center">
+    <h1>Something went wrong.</h1>
+    <p>Go to <a href="/">main page</a>.</p>
 </div>
+
 </body>
 </html>
