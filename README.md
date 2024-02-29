@@ -1,6 +1,6 @@
 # Movie Score
 
-Movie Score is a web application that allows users to view movie ratings and, upon registration, submit their own ratings. It is built using Java, Servlets, Filters, and JDBC.
+Movie Score is a simple web application that allows users to view movie ratings and, upon registration, submit their own ratings. It is built using Java, Servlets, Filters, and JDBC.
 
 ## Features
 
