@@ -60,17 +60,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addReview(User user, Long filmId, Long review) throws ValidationException {
-        if (user.getReviews().isEmpty()) {
-            userDao.addReview(user, filmId, review);
-            return;
-        }
 
-        user.getReviews().stream()
-                .filter(r -> r.getFilmId().equals(filmId)).findFirst()
-                .orElseThrow(() ->
-                        new ValidationException(List.of(Error.of("invalid.review",
-                                "You can not add more than 1 review")))
-                );
+        var reviewOptional = user.getReviews().stream()
+                .filter(r -> r.getFilmId().equals(filmId)).findFirst();
+
+        if (reviewOptional.isPresent()) {
+            throw new ValidationException(List.of(Error.of("invalid.review",
+                    "You can not add more than 1 review")));
+        }
 
         userDao.addReview(user, filmId, review);
     }
